@@ -11,10 +11,25 @@ Init.fnl
 This starts the compiler and publisher.
 
 [main]
-    (local compiler (require :lib.compiler))
-    (local publisher (require :lib.publisher))
-    
-    (when (= (length arg) 1)
-        (compiler (. arg 1) (publisher (. arg 1))))
+  <compiler_lib>
+  <publisher_lib>
+  (when (= (length arg) 1)
+    (compiler (. arg 1) (publisher (. arg 1))))
+[/]
+
+Local Dependencies
+------------------------------------------------------------
+The first dependency is on the compiler. It is responsible
+for writing the code to a compliable file.
+
+[compiler_lib]
+  (local compiler (require :lib.compiler))
+[/]
+
+The second dependency is on the publisher. It is
+responsible for taking care of publishing the text file.
+
+[publisher_lib]
+  (local publisher (require :lib.publisher))
 [/]
 
