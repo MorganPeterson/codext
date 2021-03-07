@@ -16,7 +16,7 @@
   (with-open [file (io.open filename :wb)]
     (write-code c blk file)))
 
-(fn compiler [filename]
+(fn compiler [filename outfile]
   (var block {})
   (let [results (parser filename)]
     (if (= (. results "status") nil)
@@ -26,5 +26,5 @@
             (tset block (. line "command") [(. line "arg")])
             (table.insert (. block (. line "command")) (. line "arg")))))
       (print (. results "status"))))
-  (fill-code block "main" "test.R"))
+  (fill-code block "main" outfile))
 

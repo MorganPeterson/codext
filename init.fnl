@@ -1,3 +1,3 @@
 (local compiler (require :lib.compiler))
 
-(compiler "test.txt")
+(compiler "test.txt" "test.R")
