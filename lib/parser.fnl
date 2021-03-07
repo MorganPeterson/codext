@@ -33,14 +33,14 @@
       (table.insert s cs)
       (table.insert s 2 (.. (. s 2) " " cs))))
   (if (= (string.sub (. s 1) -1) ":")
-    {:command (string.sub (. s 1) 1 -2) :arg (str-trim (. s 2)) :type "var"}
-    {:command (. s 1) :arg (str-trim (. s 2)) :type "cmd"}))
+    {:command (string.sub (. s 1) 1 -2) :arg (str-trim (. s 2)) :type :var}
+    {:command (. s 1) :arg (str-trim (. s 2)) :type :cmd}))
 
 (fn find-txt-arg [cmd cstr]
   "parse a command and the args to a table [command arg type]"
   (var s [])
   (let [str-trim (create-string-trim)]
-    {:command cmd :arg (str-trim cstr) :type "text"}))
+    {:command cmd :arg (str-trim cstr) :type :text}))
 
 (fn p-commands [text]
   "parse commands"
@@ -51,7 +51,7 @@
       (let [txt ((apply find-txt-arg (find-txt-line)) text)]
         (if (~= (. txt 1) nil)
           (. txt 1)
-          {:command "." :arg (str-trim (. txt 2)) :type "text"})))))
+          {:command "." :arg (str-trim (. txt 2)) :type :text})))))
 
 (fn read-file [filename]
   "opens and reads entire file returning a table [ok msg]"
@@ -76,15 +76,15 @@
     (if fileStatus.ok
       (each [_ line (ipairs (split-lines fileStatus.msg))]
         (let [cmd (p-commands line)]
-          (if (= cmd.type "cmd")
-            (if (= cmd.command "begin_src")
+          (if (= (. cmd :type) :cmd)
+            (if (= (. cmd :command) :begin_src)
               (set code {:code? true :type cmd.arg})
-              (= cmd.command "end_src")
+              (= (. cmd :command) :end_src)
               (set code {:code? false :type nil})))
-          (if (= cmd.type "text")
+          (if (= (. cmd :type) :text)
             (when code.code?
-              (tset cmd "type" "code")
-              (tset cmd "command" code.type)))
+              (tset cmd :type :code)
+              (tset cmd :command (. code :type))))
           (table.insert cmds cmd)))
     (set status fileStatus.msg)))
   {: status : cmds})
