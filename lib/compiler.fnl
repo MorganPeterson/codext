@@ -27,7 +27,6 @@
   (let [results (parser filename)]
     (when (= (. results :status) nil)
       (each [_ line (ipairs (. results :cmds))]
-        (print (. line :type) (. line :command) (. line :arg))
         (when (and (= (. line :type) :code) (~= (. line :command) (. line :arg)))
           (if (= (. block (. line :command)) nil)
             (tset block (. line :command) [(. line :arg)])
