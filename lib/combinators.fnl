@@ -1,5 +1,3 @@
-(local combinators {})
-
 (fn read-input [input]
   "Get the first character of a string"
   (input:sub 1 1))
@@ -32,7 +30,7 @@
         (create-result nil input)))))
 
 (fn p-and [parser1 parser2]
-  "Takes tow parsers and if both work returns the result of both"
+  "Takes two parsers and if both work returns the result of both"
   (fn [input]
     (let [result1 (parser1 input)]
       (if (. result1 1)
@@ -52,8 +50,4 @@
         (create-result (f (. result 1) (. result 2)))
         result))))
 
-(tset combinators :apply apply)
-(tset combinators :p-and p-and)
-(tset combinators :p-or p-or)
-(tset combinators :check-char check-char)
-combinators
+{: apply : p-and : p-or : check-char}
