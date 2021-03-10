@@ -6,10 +6,20 @@ A tool for writing literate programs.
 
 1. [lua](https://lua.org) >= 5.3
 2. [Fennel](https://fennel-lang.org) >= 0.8
+3. lua5.3-dev for compiling a binary
 
 ## Usage
 
 `fennel init.fnl [publish | compile] [your-file]`
+
+## compiling
+Included in the repo is shell script with a sample compile command for
+compiling to a single binary. You will need the lua development libs
+installed on your system. You will need to link to the shared lua libs
+and the lua includes directory. More information can be found running the
+command:
+
+`fennel --help`
 
 ## init.fnl
 
