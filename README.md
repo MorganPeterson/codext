@@ -1,5 +1,16 @@
 # Codext
 
+A tool for writing literate programs.
+
+## Dependencies
+
+1. [lua](https://lua.org) >= 5.3
+2. [Fennel](https://fennel-lang.org) >= 0.8
+
+## Usage
+
+`fennel init.fnl [publish | compile] [your-file]`
+
 ## init.fnl
 
 This is the main function for codext. All this file handles is the command
